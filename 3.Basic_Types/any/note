@@ -4,3 +4,10 @@ v = "string"; // no error as it can be "any" type
 Math.round(v); // no error as it can be "any" type
 
 
+let value: any;
+value = "Hello"; // ✅ Allowed
+value = 42;      // ✅ Allowed
+value = true;    // ✅ Allowed
+
+let str: string = value; // ✅ No error (even if value is not a string)
+str.toUpperCase(); // ❌ Might fail at runtime if value is not a string

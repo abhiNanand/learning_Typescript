@@ -1,0 +1,27 @@
+type keyword is used to define custom types.
+type TypeName = TypeDefinition;
+
+type Age = number;
+let myAge: Age = 25; // ✅ Works
+let anotherAge: Age = "25"; // ❌ Error: Type 'string' is not assignable to type 'number'
+
+
+🔹 Using type for Objects
+type User = {
+    name: string;
+    age: number;
+  };
+  
+  const person: User = { name: "Alice", age: 30 }; // ✅ Works
+  const anotherPerson: User = { name: "Bob" }; // ❌ Error: Property 'age' is missing
+  
+
+  1️⃣ Union Types
+A Union Type allows a variable to have multiple types
+type Status = "success" | "error" | "loading";
+
+let apiStatus: Status = "success"; // ✅ Works
+apiStatus = "failed"; // ❌ Error: Type '"failed"' is not assignable to type 'Status'
+This is useful for defining strict values a variable can hold.
+
+

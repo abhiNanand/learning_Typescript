@@ -1,1 +1,21 @@
-unknown is similar to any but safter alternative to any.
+unknown is similar to any but safter alternative to any. because it forces type checking before you use the value.
+
+You can assign any value to unknown, but you cannot perform operations on it without first narrowing the type.
+
+let value: unknown;
+value = "Hello"; // ✅ Allowed
+value = 42;      // ✅ Allowed
+value = true;    // ✅ Allowed
+
+let str: string = value; // ❌ Error: Type 'unknown' is not assignable to type 'string'
+
+if (typeof value === "string") {
+  let str: string = value; // ✅ Now it's allowed
+  console.log(str.toUpperCase()); // ✅ Safe to use
+}
+
+
+Use any only if you need complete flexibility and don’t care about type safety (not recommended).
+Use unknown when you expect a value to be dynamic but want to enforce proper type checking before using it.
+
+
