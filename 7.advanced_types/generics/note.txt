@@ -1,0 +1,33 @@
+
+Generics allows us to write
+-flexible      -reusable       -type-safe 
+code by allowing to define a function, class, or interface that can work with multiple types.
+
+The main idea is that we can define a placeholder for a type,
+which get define later when the function, class, interface is used.
+
+Example-1
+
+function identity<T>(arg:T): T{
+    return arg;
+}
+
+T is a placeholder for any type;
+when we call identity we can specify the type, or typescript 
+
+function identity<T>(arg:T)
+: T
+{
+
+return arg;
+}
+
+console.log(identity(5)); // typescript infers T as number
+console.log(identity("my name is abhisek anand")); // typerscript infers T as string.
+
+Here T is a placeholder holder that can be replaced with any types when we use the function.
+
+Why we use generics?
+1. reuseability
+2. typesafety
+3. flexibility

@@ -1,0 +1,61 @@
+Type Script provides two ways to organize code.
+1. Es modules (recommended)
+2. namespaces (legacy, for internal organization)
+
+1. ES Modules (Recommended)
+TypeScript follows ES Modules, using import and export just like modern JavaScript.
+
+// Named Exports
+export function add(a: number, b: number): number {
+  return a + b;
+}
+
+export const PI = 3.14;
+
+// Default Export
+export default function multiply(a: number, b: number): number {
+  return a * b;
+}
+// Importing Named Exports
+import { add, PI } from "./math";
+
+console.log(add(2, 3)); // 5
+console.log(PI); // 3.14
+
+// Importing Default Export
+import multiply from "./math";
+console.log(multiply(2, 3)); // 6
+
+// Importing Everything
+import * as MathUtils from "./math";
+console.log(MathUtils.add(4, 5)); // 9
+console.log(MathUtils.default(4, 5)); // 20
+
+
+2. Namespaces (Older Method, Not Recommended)
+Namespaces (previously called internal modules) help group related code within a single file or across multiple files.
+namespace Geometry {
+  export function area(radius: number): number {
+    return Math.PI * radius * radius;
+  }
+
+  export function perimeter(radius: number): number {
+    return 2 * Math.PI * radius;
+  }
+}
+
+console.log(Geometry.area(5)); // 78.54
+console.log(Geometry.perimeter(5)); // 31.42
+
+ Everything inside the namespace is private by default, so you must use export to make functions available.
+
+ ✅ Why Use Namespaces?
+
+Helps avoid name collisions in large projects.
+Used in older global-scope TypeScript projects.
+❌ Why Not Use Namespaces?
+
+Not supported in modern ES Modules.
+Harder to maintain in large applications.
+No tree shaking (everything loads, even unused code).
+

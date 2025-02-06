@@ -1,0 +1,70 @@
+
+
+function greeter(fn: (a: string) => void) {
+  fn("Hello, World");
+}
+ 
+function printToConsole(s: string) {
+  console.log(s);
+}
+ 
+greeter(printToConsole);
+
+type GreetFunction = (a: string) => void;
+function greeter(fn: GreetFunction) {
+  // ...
+}
+
+ 
+ 
+function add( a:number, b:number):number
+{
+  return a+b;
+}
+console.log(add(5,10));
+
+Optional & Default Parameters
+_____________________________
+
+optional Parameters (?) -> if not provided it is undefined.
+default parameter(=) -> uses a default value if no argument is given.
+
+function greet(name:string, age?:number):string
+{
+
+}
+
+
+Optional paramater:
+You can make a function parameter optional by adding a ? after the parameter name.
+Example: Function Without Optional Parameters
+function greet(name: string, age: number): string {
+    return `Hello ${name}, you are ${age} years old.`;
+}
+
+console.log(greet("Alice", 25)); // ✅ Works
+console.log(greet("Bob")); // ❌ Error: Expected 2 arguments, but got 1
+function greet(name: string, age?: number): string {
+    if (age !== undefined) {
+        return `Hello ${name}, you are ${age} years old.`;
+    }
+    return `Hello ${name}!`;
+}
+
+console.log(greet("Alice", 25)); // Hello Alice, you are 25 years old.
+console.log(greet("Bob")); // Hello Bob!
+age? means age can be omitted.
+If age is not provided, its value will be undefined.
+We check if (age !== undefined) before using it.
+function greet(name: string, age: number = 18): string {
+    return `Hello ${name}, you are ${age} years old.`;
+}
+
+console.log(greet("Alice", 25)); // Hello Alice, you are 25 years old.
+console.log(greet("Bob")); // Hello Bob, you are 18 years old.
+
+If age is not provided, it defaults to 18.
+No need to check undefined manually.
+
+const divide = (a: number, b: number): number => a / b;
+console.log(divide(10, 2)); // 5

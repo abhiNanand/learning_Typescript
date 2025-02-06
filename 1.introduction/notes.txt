@@ -1,0 +1,328 @@
+to use typescript on browser
+1.install node.This will also install npm.
+2. check on terminal
+node -v
+npm -v
+
+in terminal
+npm install -g typescript
++++++++++++++++++++++++======================================================
+
+Typescript is a programming language developed by microsoft that is superset of javascirpt means all javascript code is valid typescript code but typescript add some extra features, mainly staic typing.
+
+Why Do we need typescript?
+Javascript is a powerful language, but it has some limittation, especially for large scale application. Typescript helps by providing-
+
+Static Typic:
+In javascript variables dont have fixed types:
+let message = “Hello”;
+message = 10; // No error, but can cause bugs
+
+in typescript we specify types to prevent errors:
+let message: string = “hello”;
+message=10; //error! typescript stops this mistake
+
+Better code Readability and maintainability
+TypeScript helps developers understand what kind of data a function or variable should handle, making the code more self-explanatory.
+
+Early Error Detection
+TypeScript catches errors during development rather than a runtime, making debugging easier.
+
+4.Object-Oriented Features
+TypeScript supports classes, interfaces, and modules, making it great for building large applications.
+
+Feature JavaScript TypeScript
+Typing Dynamic (no fixed types) Static (fixed types)
+Error Detection Errors are found at runtime Errors are found at compile-time
+Code Readability Can be hard to maintain in large projects More structured and maintainable
+Object-Oriented Features Supports objects but lacks strong OOP features Has interfaces, classes, and modules
+IDE Support Basic autocompletion Advanced type-checking and refactoring
+Compilation Directly runs in browsers and Node.js Needs to be compiled into JavaScript using tsc
+
+how does typescript works?
+Since browsers don’t understand Typescript directly, it needs to be compiled(transpiled) into javscript.
+
+save typescript file by .ts
+compile by tsc filename.ts - it compile typeScript to javascript
+This will generate a new file: index.js in the same folder.
+
+Run the Compiled JavaScript File-
+Since TypeScript compiles to JavaScript, you need to run index.js using Node.js
+node index.js
+
+Alternative: Run TypeScript Directly Using ts-node (Optional)
+Instead of compiling manually, you can use ts-node, which runs TypeScript files directly.
+
+Install ts-node globally:
+npm install -g ts-node
+Run your TypeScript file directly:
+ts-node index.ts
+
+to link html with typescript file use
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Defining Custom Types Using interface
+JavaScript is dynamic, meaning objects can have any shape.
+To make it structured, TypeScript allows defining object shapes using interface.
+What is interface?
+Interface is a way to define the structure of object, it ensures that object has specific properties and types.
+
+interface User
+{
+name:string;
+id:number:
+}
+
+const user:User =
+{
+name:“Jhon Doe”,
+id=101,
+};
+
+If you try to add extra properties that aren’t in the User interface:
+const user: User = {
+username: “JohnDoe”, // ❌ Error: ‘username’ is not defined in User
+id: 101,
+};
+
+Why use interface?
+
+Ensures consistency in objects.
+Helps catch mistakes early.
+Improves readability in large projects.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Using interface with classess
+
+Since JavaScript supports OOP (Object-Oriented Programming), TypeScript does too!
+
+✅ Example: Interface with classes
+
+interface User {
+name: string;
+id: number;
+}
+
+class UserAccount implements User {
+name: string;
+id: number;
+
+constructor(name: string, id: number) {
+this.name = name;
+this.id = id;
+}
+}
+
+const newUser: User = new UserAccount(“Alice”, 102);
+
+================-=-=-=-=–=-=-=-=–=-=-=-=-=-=--=-=-=-=—=-=-=-=-—-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Using Interface in functions:
+
+function deleteUser(user: User)
+{
+console.log(deleting users: ${user.name});
+}
+
+function getAdminUser(): User {
+return {name:“Admin”,id:0};
+}
+
+Why use interfaces in functions?
+
+Ensures functions receive correct data types.
+Reduces unexpected runtime errors.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-===========-=-=-=-=-=-=-=-=-=--=
+
+Composing Types
+
+https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+
+There is already a small set of primitive types available in JavaScript: boolean, bigint, null, number, string, symbol, and undefined, which you can use in an interface. TypeScript extends this list with a few more, such as any (allow anything), unknown (ensure someone using this type declares what the type is), never (it’s not possible that this type could happen), and void (a function which returns undefined or has no return value).
+
+You’ll see that there are two syntaxes for building types: Interfaces and Types. You should prefer interface. Use type when you need specific features.
+
+TypeScript allows us to create more complex types by combining simpler types. The two main ways to do this are Unions and Generics.
+
+Unions: union allows a variable to hold multiple type instead to be restricted of single type.
+
+1️⃣ Basic Union Example
+type MyBool = true | false;
+Here, MyBool can only be true or false. Internally, TypeScript recognizes this as a boolean.
+
+2️⃣ Union with String & Number Literals
+Union types are useful when you want to restrict values to a set of predefined options.
+type WindowStates = “open” | “closed” | “minimized” ;
+type LocakStates = “locked” | “unlocked”;
+type PositiveOddNumbersUnderTen = 1|3|5|7|9;
+
+WindowStates can only be “open”, “closed”, or “minimized”.
+LockStates can only be “locked” or “unlocked”.
+PositiveOddNumbersUnderTen can only be one of 1, 3, 5, 7, 9.
+
+3️⃣ Union with Function Parameters
+We can use union types to allow functions to accept multiple input types.
+
+We can use union types to allow functions to accept multiple input types.
+
+function getLength(obj: string | string[]): number
+{
+
+  return obj.length;//5
+
+}
+console.log(getLength('Hello'));//5
+console.log(getLength(['a','b','c'])); //3
+
+If obj is a string, .length returns the number of characters.
+If obj is an array, .length returns the number of elements.
+
+function wrapInArray(obj: string | string[]): string[] {
+  if (typeof obj === "string") {
+    return [obj]; // Convert string to array
+  }
+  return obj; // Already an array
+}
+
+console.log(wrapInArray("hello")); // ["hello"]
+console.log(wrapInArray(["a", "b", "c"])); // ["a", "b", "c"]
+If obj is a string, it wraps it inside an array.
+If obj is already an array, it returns it as is.
+
+=====================================================================
+
+Generics in TypeScript
+______________________
+
+Generics allow us to create reusable, flexible, and type-safe components by introducing type variables.
+
+1️⃣ Why Use Generics?
+Without generics, an array can contain any type of value:
+
+const arr: any[] =[1,"hello",true]; //no type safety
+This can lead to unexpected errors. With generics, we can specify the type of elements in an array:
+
+
+type StringArray= Array<string>;
+type NumberArray=Array<Number>;
+type ObjectWithNameArray = Array< {name:string}>;
+
+const names: StringArray = ["Alice","Bob"];
+const numbers:NumberArray = [1,2,3,4];
+const objects: ObjectWithNameArray = [{name:"Abhi"},{name:"Doe"}];
+Now:
+
+StringArray can only contain string values.
+NumberArray can only contain number values.
+ObjectWithNameArray must contain objects with a name property.
+
+2️⃣ Creating Custom Generic Types
+We can declare our own generic types using <T> (a placeholder for any type).
+
+interface Backpack<T> 
+{
+  add: (obj:T) => void;
+  get: () => T ;
+}
+Here:
+
+T is a generic type variable.
+The add() function accepts an object of type T.
+The get() function returns an object of type T.
+
+3️⃣ Using a Generic Type
+declare const backpack: Backpack<string>;
+
+const object = backpack.get(); // object is of type 'string'
+backpack.add("New Item"); // ✅ Allowed
+backpack.add(23); // ❌ Error: Type 'number' is not assignable to type 'string'.
+
+Since backpack is a Backpack<string>, it must store strings.
+We cannot add a number (23) because it expects a string.
+
+✔ Union Types (|) allow variables to hold multiple types.
+✔ Use typeof to check the type of a variable inside a function.
+✔ Generics (<T>) make TypeScript flexible and reusable by allowing type variables.
+✔ Use Generics to enforce type safety in arrays, functions, and interfaces.
+
+=====================================================================
+Structural Type System
+______________________
+
+TypeScript uses a structural type system to check types. This means that TypeScript cares more about the shape or structure of the data rather than how it was created or declared. This principle is often called duck typing or structural typing
+
+1️⃣ What is Duck Typing?
+if an object looks like duck (has properties and methods like a duck),
+Typescript will treat it as a duck, even it is not declared as Duck.
+
+2️⃣ Example of Structural Typing
+Let's look at a simple example:
+
+interface Point 
+{
+  x:number;
+  y:number;
+}
+
+function logPoint(p: Point)
+{
+  console.log(` ${p.x}, ${p.y}`;)
+}
+
+const point = {x:12, y:26};
+logPoint(point);
+We have an interface called Point that requires two properties: x (a number) and y (a number).
+Then, we define an object point with x: 12 and y: 26.
+Even though the point object is never explicitly declared as type Point, TypeScript still allows us to pass it to the logPoint function because the shape (or structure) of point matches the Point interface: it has both x and y of type number.
+
+3️⃣ Shape Matching with Subsets
+______________________________
+TypeScript doesn't require an object to match exactly in terms of fields, as long as it has the required ones. 
+For example:
+const point3 = { x: 12, y: 26, z: 89 };
+logPoint(point3); // logs "12, 26"
+The object point3 has extra properties (z), but since it still has x and y (the required properties), TypeScript is happy with it. It still matches the Point shape.
+
+4️⃣ What Happens If Fields Are Missing?
+If an object lacks the required fields (for example, x and y), TypeScript will throw an error:
+
+ts
+Copy
+Edit
+const color = { hex: "#187ABF" };
+logPoint(color); 
+// Error: Argument of type '{ hex: string; }' is not assignable to parameter of type 'Point'.
+color does not have x and y, which are required by the Point interface. Therefore, TypeScript says it doesn't match the Point type and gives an error.
+
+
+There is no difference between how classes and objects conform to shapes:
+
+
+5️⃣ Classes and Structural Typing
+_________________________________
+Classes work the same way. As long as a class has the required properties, TypeScript will treat it as a match for a particular type.
+
+class VirtualPoint
+{
+  x:number;
+  y:number;
+
+  constructor(x:number, y:number)
+  {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+
+const newVpoint = new VirtualPoint(13,56);
+logPoint(newVPoint); // logs "13, 56"
+
+🔑 Key Takeaways
+Structural typing means TypeScript cares about the shape of the object (i.e., its properties and their types) rather than how it's created.
+If an object has the same structure (properties with the right types), TypeScript considers it the same type, even if it wasn't explicitly declared that way.
+If an object doesn’t have the required fields, TypeScript will show an error.
+This principle applies to both objects and classes in TypeScript. =====================================================================
+
+ 

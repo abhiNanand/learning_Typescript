@@ -1,0 +1,183 @@
+Type Script has some extra types
+
+// //boolean
+// let isDone: boolean=false;
+// console.log(isDone);
+
+// //Number- Decimal hex binary number bigint octal bigInt
+
+// let decimal: number = 6;
+// let hex:number = 0xf00d;
+// let binary: number = 0o744;
+// let big: bigint = 100n;
+
+// //String
+// let color: string = "abhishek";
+// color="red";
+
+
+// // You can also use template strings, which can span multiple lines and have embedded expressions. These strings are surrounded by the backtick/backquote (`) character, and embedded expressions are of the form ${ expr }.
+
+// let fullName: string = `Bob Bobbington`;
+// let age: number = 37;
+// let sentence: string = `Hello, my name is ${fullName}.I'll be ${age + 1} years old next month.`;
+
+// This is equivalent to declaring sentence like so:
+
+// let sentence: string =
+//   "Hello, my name is " +
+//   fullName +
+//   ".\n\n" +
+//   "I'll be " +
+//   (age + 1) +
+//   " years old next month.";
+
+
+//Array: can be written in two way
+
+// let array1:number[] = [1,2,3];
+// let array2:Array<number> =[1,2,3];
+
+//Tuple - it allows multiple types in array
+// let x: [string,number];
+// //Initialize it
+// x=["hello",10];//ok
+// //Initialize it incorrectly
+// //x=[10,"hello"];//Error
+
+// console.log(x[0].substring(2)); //llo
+
+//Enum 
+//enum are a feature in js by tc which allows for describing a value.
+// By default, enums begin numbering their members starting at 0. You can change this by manually setting the value of one of its members. For example, we can start the previous example at 1 instead of 0:
+
+// enum A 
+// {
+//     x,
+//     y,
+//     z,
+// }
+// console.log(A.x,A.y,A.z); //0 1 2
+
+
+
+
+// enum A 
+// {
+//     x=2,
+//     y,
+//     z,
+// }
+// console.log(A.x,A.y,A.z); //2 3 4
+
+
+
+// enum A 
+// {
+//     x=5,
+//     y=9,
+//     z,
+// }
+// console.log(A.x,A.y,A.z); //5 9 10
+
+
+
+
+1️⃣ unknown Type
+it can hold anything but typescript won't let us use what is inside 
+without checking first.
+
+let notSure: unknown = 4; // okay , it's a number 
+notSure = "maybe a string instead"; // okay, now it's a string 
+
+let notSure: unknown = 4; // Okay, it's a number
+notSure = "maybe a string instead"; // Okay, now it's a string
+notSure = false; // Okay, now it's a boolean
+
+Checking Type Before Using (typeof)
+declare const maybe: unknown;
+
+// ❌ ERROR: We don’t know if it's a number
+const aNumber: number = maybe; 
+
+if (typeof maybe === "string") {
+  // ✅ Now TypeScript knows it's a string
+  const aString: string = maybe;
+}
+-=-=-=-=--=-=-=-=-=-=-=-=-=----=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+2️⃣ any Type
+ 
+ 
+
+The `any` type in TypeScript is a special type that disables type checking, allowing a variable to hold any value. It’s similar to JavaScript's dynamic typing.  
+
+### **Usage of `any` Type**
+```typescript
+let data: any = "Hello";  
+data = 42;  
+data = true;  
+data = { name: "John" };  
+```
+Here, `data` can be assigned a string, number, boolean, or object without any errors.
+
+### **When to Use `any`**
+- When migrating JavaScript code to TypeScript and unsure of the types.  
+- When working with dynamic data (e.g., API responses where the structure is unknown).  
+- When you genuinely don’t care about type safety in a specific scenario.  
+
+### **Downsides of `any`**
+- It removes TypeScript's main benefit: **type safety**.  
+- Can lead to runtime errors because TypeScript won’t catch type mismatches.  
+
+### **Safer Alternatives**
+Instead of `any`, consider:
+- **`unknown`** – Similar to `any`, but requires type checking before using.  
+- **Union Types** – Define possible types explicitly.  
+- **Generics** – Make functions/components reusable with strong typing.  
+
+Would you like a practical example or a comparison with `unknown`? 🚀
+
+
+noImplicitAny
+When you don’t specify a type, and TypeScript can’t infer it from context, the compiler will typically default to any.
+
+You usually want to avoid this, though, because any isn’t type-checked. Use the compiler flag noImplicitAny to flag any implicit any as an error.
+
+Functions
+function greet(name: string) {
+  console.log("Hello, " + name.toUpperCase() + "!!");
+}
+
+
+return type  - 
+function getFavoriteNumber(): number 
+{
+  return 26;
+}
+
+Functions Which Return Promises
+async function getFavoriteNumber(): Promise<number> {
+  return 26;
+}
+
+
+function printCoord(pt: { x: number; y: number }) {
+  console.log("The coordinate's x value is " + pt.x);
+  console.log("The coordinate's y value is " + pt.y);
+}
+printCoord({ x: 3, y: 7 });
+
+void
+____
+
+
+In TypeScript, void is a special type used when a function does not return a value. It is similar to undefined in JavaScript but explicitly tells the compiler that a function does not produce any meaningful output.
+
+function logMessage(message: string): void {
+    console.log(message);
+}
+
+let unusable: void = undefined; // Only undefined is allowed
+
+ 
+
